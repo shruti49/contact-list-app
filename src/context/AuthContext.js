@@ -29,12 +29,12 @@ export const AuthProvider = ({ children }) => {
 	// Initialize Firebase Authentication and get a reference to the service
 	const auth = getAuth(app);
 	const [isLoading, setIsLoading] = useState(false);
-	const [user, setUser] = useState();
+	const [user, setUser] = useState(null);
 
 	//Handle User State Changes
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
-			if (user) {
+			if (user !== null) {
 				// User is signed in, see docs for a list of available properties
 				// https://firebase.google.com/docs/reference/js/firebase.User
 				setIsLoading(true);
@@ -42,17 +42,15 @@ export const AuthProvider = ({ children }) => {
 				setIsLoading(false);
 				//const uid = user.uid;
 				// ...
-			} else {
-				// User is signed out
-				// ...
 			}
 		});
 	}, [user]);
 
-	const login = async (email, password) => {
+	const login = (email, password) => {
 		setIsLoading(true);
 		signInWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
+				console.log(userCredential);
 				// Signed in
 				const user = userCredential.user;
 				setUser(user);
@@ -62,6 +60,10 @@ export const AuthProvider = ({ children }) => {
 			.catch((error) => {
 				const errorCode = error.code;
 				const errorMessage = error.message;
+				console.log("errorCode", errorCode);
+				if (errorCode) {
+					return "Oops something went wrong";
+				}
 			});
 	};
 
@@ -75,7 +77,8 @@ export const AuthProvider = ({ children }) => {
 			handleCodeInApp: true,
 		};
 		createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
-			.then(async () => {
+			.then(async (userCredential) => {
+				console.log(userCredential.user);
 				sendSignInLinkToEmail(auth, newUser.email, actionCodeSettings)
 					.then(() => {
 						// The link was successfully sent. Inform the user.
@@ -92,8 +95,7 @@ export const AuthProvider = ({ children }) => {
 				// Signed in
 				//const user = userCredential.user;
 				// ...
-				saveInFirebaseDb("Users", newUser
-				);
+				saveInFirebaseDb("Users", newUser);
 			})
 			.catch((error) => {
 				const errorCode = error.code;

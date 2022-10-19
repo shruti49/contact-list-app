@@ -11,7 +11,6 @@ import InputBox from "../components/InputBox.component";
 import validateWrapper from "../utilities/validationWrapper";
 import { AuthContext } from "../context/AuthContext";
 
-
 const LoginScreen = ({ navigation }) => {
 	const { login } = useContext(AuthContext);
 	const [email, setEmail] = useState();
@@ -51,7 +50,9 @@ const LoginScreen = ({ navigation }) => {
 			return;
 		}
 
-		login(email, password);
+		const response = login(email, password);
+		console.log(response);
+		//response.then((a) => console.log(a));
 	};
 
 	return (

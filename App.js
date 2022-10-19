@@ -10,8 +10,6 @@ import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import AppNavigator from "./src/navigation/AppNavigator";
 import { AuthProvider } from "./src/context/AuthContext";
 
-import { Provider as PaperProvider } from "react-native-paper";
-
 export default function App() {
 	return (
 		<>
@@ -19,9 +17,7 @@ export default function App() {
 			<ApplicationProvider {...eva} theme={eva.light}>
 				<SafeAreaView style={styles.container}>
 					<AuthProvider>
-						<PaperProvider>
 							<AppNavigator />
-						</PaperProvider>
 					</AuthProvider>
 				</SafeAreaView>
 			</ApplicationProvider>
