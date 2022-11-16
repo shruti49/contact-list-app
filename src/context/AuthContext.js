@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-
+import { Alert } from "react-native";
 import { initializeApp } from "firebase/app";
 import {
 	getAuth,
@@ -50,7 +50,6 @@ export const AuthProvider = ({ children }) => {
 		setIsLoading(true);
 		signInWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
-				console.log(userCredential);
 				// Signed in
 				const user = userCredential.user;
 				setUser(user);
@@ -59,11 +58,14 @@ export const AuthProvider = ({ children }) => {
 			})
 			.catch((error) => {
 				const errorCode = error.code;
-				const errorMessage = error.message;
-				console.log("errorCode", errorCode);
-				if (errorCode) {
-					return "Oops something went wrong";
-				}
+				Alert.alert("Oops something went wrong", errorCode, [
+					{
+						text: "Cancel",
+						onPress: () => console.log("Cancel Pressed"),
+						style: "cancel",
+					},
+					{ text: "OK", onPress: () => console.log("OK Pressed") },
+				]);
 			});
 	};
 
@@ -78,7 +80,7 @@ export const AuthProvider = ({ children }) => {
 		};
 		createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
 			.then(async (userCredential) => {
-				console.log(userCredential.user);
+				user.displayName = newUser.fname + " " + newUser.lname;
 				sendSignInLinkToEmail(auth, newUser.email, actionCodeSettings)
 					.then(() => {
 						// The link was successfully sent. Inform the user.

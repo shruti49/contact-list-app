@@ -19,7 +19,7 @@ const ContactCard = ({ user, navigation }) => {
 			});
 	};
 
-	const IMAGE_URL = `file:///data/user/0/host.exp.exponent/cache/ImagePicker/${user.data.contactImage}`;
+	const IMAGE_URL = user.data.contactImage;
 	return (
 		<View style={styles.container}>
 			<Avatar style={styles.image} size="medium" source={{ uri: `${IMAGE_URL}` }} />

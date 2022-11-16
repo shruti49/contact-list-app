@@ -51,8 +51,9 @@ const LoginScreen = ({ navigation }) => {
 		}
 
 		const response = login(email, password);
-		console.log(response);
-		//response.then((a) => console.log(a));
+		if (response === undefined) {
+			navigation.navigate("login");
+		}
 	};
 
 	return (

@@ -31,7 +31,7 @@ const ContactForm = ({ screenName, navigation, userId }) => {
 	const [email, setEmail] = useState("");
 	const [isWhatsApp, setIsWhatsApp] = useState(false);
 	const [visible, setVisible] = useState(false);
-	const [contactPicture, setContactPicture] = useState();
+	const [contactPicture, setContactPicture] = useState("");
 	const db = getFirestore();
 
 	const fetchUserById = async (userId) => {
@@ -52,22 +52,25 @@ const ContactForm = ({ screenName, navigation, userId }) => {
 
 	useEffect(() => {
 		if (userObj !== undefined) {
-			setUserName(userObj.name);
+			setFirstName(userObj.fName);
+			setLastName(userObj.lName);
 			setNumber(userObj.phoneNumber);
+			setContactPicture(userObj.contactImage);
+			setEmail(userObj.emailId);
 			setIsWhatsApp(userObj.isWhatsApp);
 		}
 	}, [userObj]);
 
 	const [selectedPhoneIndex, setSelectedPhoneIndex] = useState(0);
 	const phoneLabel = ["Home", "Office"];
-	const phoneType = userObj !== undefined ? userObj.type : phoneLabel[selectedPhoneIndex.row];
+	const phoneType = userObj !== undefined ? userObj.phoneLabel : phoneLabel[selectedPhoneIndex.row];
 	const displayPhoneValue = phoneType;
 
 	const renderPhoneOptions = (title) => <SelectItem title={title} key={title} />;
 
 	const [selectedEmailIndex, setSelectedEmailIndex] = useState(0);
 	const emailLabel = ["Personal", "Work"];
-	const emailType = userObj !== undefined ? userObj.type : emailLabel[selectedEmailIndex.row];
+	const emailType = userObj !== undefined ? userObj.emailLabel : emailLabel[selectedEmailIndex.row];
 	const displayEmailValue = emailType;
 
 	const renderEmailOptions = (title) => <SelectItem title={title} key={title} />;
@@ -133,25 +136,22 @@ const ContactForm = ({ screenName, navigation, userId }) => {
 		}
 		if (pickerResult.base64) {
 			setVisible(false);
-			setContactPicture(pickerResult);
+			setContactPicture(pickerResult.uri);
 		}
 	};
 
 	const storeDataInFirebase = async () => {
-		// const response = await fetch(contactPicture.uri);
-		// const blob = await response.blob();
-		// const fileName = contactPicture.uri.substring(contactPicture.uri.lastIndexOf("/") + 1);
-		//console.log("response");
-
 		const userData = {
-			contactImage: contactPicture.uri,
+			contactImage: contactPicture
+				? contactPicture
+				: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKMvO4ydq3DuBwMUTliFGqGm641axT0vrKaQ&usqp=CAU",
 			fName: firstName,
 			lName: lastName,
 			emailId: email,
-			emailLabel: displayEmailValue,
+			emailLabel: displayEmailValue ? displayEmailValue : "",
 			phoneNumber: number,
 			isWhatsApp: isWhatsApp,
-			phoneLabel: displayPhoneValue,
+			phoneLabel: displayPhoneValue ? displayPhoneValue : "",
 		};
 
 		if (screenName === "addContactScreen") {
@@ -167,7 +167,7 @@ const ContactForm = ({ screenName, navigation, userId }) => {
 				});
 		}
 
-		//navigation.navigate("home");
+		navigation.navigate("home");
 	};
 
 	return (
@@ -177,7 +177,10 @@ const ContactForm = ({ screenName, navigation, userId }) => {
 					{contactPicture ? (
 						<>
 							<Pressable style={styles.photoContainer} onPress={() => setVisible(true)}>
-								<Avatar source={contactPicture} style={{ width: 100, height: 100 }} />
+								<Avatar
+									source={{ uri: `${contactPicture}` }}
+									style={{ width: 100, height: 100 }}
+								/>
 							</Pressable>
 							<Text>Change Photo</Text>
 						</>

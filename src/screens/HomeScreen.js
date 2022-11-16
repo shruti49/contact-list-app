@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { StyleSheet, FlatList, View } from "react-native";
+import { StyleSheet, FlatList, View, useFocusEffect } from "react-native";
 import ContactCard from "../components/ContactCard";
 import {
 	Text,
@@ -11,6 +11,7 @@ import {
 } from "@ui-kitten/components";
 import { getDocs, getFirestore, collection } from "firebase/firestore";
 import * as SplashScreen from "expo-splash-screen";
+
 
 const AddUserIcon = (props) => <Icon {...props} name="person-add" />;
 
@@ -25,7 +26,6 @@ const HomeScreen = ({ navigation }) => {
 
 	const fetchContacts = async () => {
 		try {
-			setIsLoading(true);
 			const db = getFirestore();
 			const response = collection(db, "Contacts");
 			const data = await getDocs(response);
@@ -39,9 +39,23 @@ const HomeScreen = ({ navigation }) => {
 		}
 	};
 
+	// useFocusEffect(() => {
+	// 	setIsLoading(true);
+	// 	fetchContacts();
+	// });
 	useEffect(() => {
+		setIsLoading(true);
+		//invoke on mount
 		fetchContacts();
-		return () => {};
+
+		//invoke in interval callback
+		const intervalId = setInterval(() => {
+			fetchContacts();
+		}, 10000);
+
+		return () => {
+			clearInterval(intervalId);
+		};
 	}, []);
 
 	if (userData !== undefined) {
