@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Feather, AntDesign, FontAwesome } from "@expo/vector-icons";
-import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Linking } from "react-native";
 import { Text, Avatar, Modal, Card, Button } from "@ui-kitten/components";
 import { getFirestore, doc, deleteDoc } from "firebase/firestore";
 
@@ -16,6 +16,17 @@ const ContactCard = ({ user, navigation }) => {
 			})
 			.catch((error) => {
 				console.log(error);
+			});
+	};
+
+	const openWhatsapp = () => {
+		let url = "whatsapp://send?text=" + "Hey! Wazzup" + "&phone=91" + user.data.phoneNumber;
+		Linking.openURL(url)
+			.then((data) => {
+				console.log("WhatsApp Opened successfully " + data);
+			})
+			.catch(() => {
+				alert("Make sure WhatsApp is installed on your device");
 			});
 	};
 
@@ -38,20 +49,32 @@ const ContactCard = ({ user, navigation }) => {
 					<View style={{ flexDirection: "row", alignItems: "center" }}>
 						<Text>{user.data.phoneNumber}</Text>
 						{user.data.isWhatsApp && (
-							<FontAwesome name="whatsapp" size={16} color="black" style={{ marginLeft: 8 }} />
+							<FontAwesome
+								name="whatsapp"
+								size={16}
+								color="black"
+								style={{ marginLeft: 8 }}
+								onPress={openWhatsapp}
+							/>
 						)}
 					</View>
 				</View>
 				<View style={{ flexDirection: "row" }}>
-					<TouchableOpacity
-						onPress={() => navigation.navigate("editContact", { id: user.id })}
+					<Feather
+						name="phone"
+						size={16}
 						style={{ paddingRight: 8 }}
-					>
-						<Feather name="edit" size={16} color="black" />
-					</TouchableOpacity>
-					<TouchableOpacity onPress={() => setVisible(true)}>
-						<AntDesign name="delete" size={16} color="black" />
-					</TouchableOpacity>
+						color="black"
+						onPress={() => Linking.openURL(`tel:${user?.data?.phoneNumber}`)}
+					/>
+					<Feather
+						name="edit"
+						size={16}
+						style={{ paddingRight: 8 }}
+						color="black"
+						onPress={() => navigation.navigate("editContact", { id: user.id })}
+					/>
+					<AntDesign name="delete" size={16} color="black" onPress={() => setVisible(true)} />
 				</View>
 			</View>
 
