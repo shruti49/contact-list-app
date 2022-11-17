@@ -15,7 +15,6 @@ const AppNavigator = () => {
 			</View>
 		);
 	}
-	console.log(user);
 	return (
 		<NavigationContainer>
 			{user !== null ? <AppStackNavigator /> : <AuthStackNavigator />}
