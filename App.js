@@ -1,23 +1,21 @@
-import React, { useEffect } from "react";
+import React from "react";
 // import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 
-import { SafeAreaView, StyleSheet, StatusBar, View } from "react-native";
-
+import { SafeAreaView, StyleSheet, StatusBar } from "react-native";
 import * as eva from "@eva-design/eva";
-import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
-import { EvaIconsPack } from "@ui-kitten/eva-icons";
+import { ApplicationProvider } from "@ui-kitten/components";
 
 import AppNavigator from "./src/navigation/AppNavigator";
 import { AuthProvider } from "./src/context/AuthContext";
+import { default as theme } from "./src/infrastructure/theme";
 
 export default function App() {
 	return (
 		<>
-			<IconRegistry icons={EvaIconsPack} />
-			<ApplicationProvider {...eva} theme={eva.light}>
+			<ApplicationProvider {...eva} theme={{ ...eva.dark, ...theme }}>
 				<SafeAreaView style={styles.container}>
 					<AuthProvider>
-							<AppNavigator />
+						<AppNavigator />
 					</AuthProvider>
 				</SafeAreaView>
 			</ApplicationProvider>

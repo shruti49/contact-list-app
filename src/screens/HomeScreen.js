@@ -1,20 +1,12 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { StyleSheet, FlatList, View } from "react-native";
 import ContactCard from "../components/ContactCard";
-import {
-	Text,
-	Button,
-	TopNavigation,
-	Layout,
-	Icon,
-	TopNavigationAction,
-} from "@ui-kitten/components";
+import { Text, Button, TopNavigation, Layout, TopNavigationAction } from "@ui-kitten/components";
 import { getDocs, getFirestore, collection } from "firebase/firestore";
 import * as SplashScreen from "expo-splash-screen";
 import InputBox from "../components/InputBox.component";
-import { useFocusEffect } from "@react-navigation/native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-const AddUserIcon = (props) => <Icon {...props} name="person-add" />;
 
 const HomeScreen = ({ navigation }) => {
 	// Keep the splash screen visible while we fetch resources
@@ -80,6 +72,8 @@ const HomeScreen = ({ navigation }) => {
 	const renderItem = ({ item }) => {
 		return <ContactCard user={item} navigation={navigation} />;
 	};
+	
+	const AddUserIcon = (props) => <Ionicons {...props} name="person-add-sharp" size={18} color="white" />;
 
 	const renderAccessoryRight = () => (
 		<TopNavigationAction icon={AddUserIcon} onPress={() => navigation.navigate("addContact")} />
@@ -127,26 +121,31 @@ const HomeScreen = ({ navigation }) => {
 			setInputText("");
 		}
 	};
+
+	const navigationTitle = () => (
+		<Text category="h4" style={{ marginLeft: 8 }}>
+			Contacts
+		</Text>
+	);
 	return (
-		<Layout
-			style={{ flex: 1, paddingHorizontal: 16 }}
-			level="1"
-			onLayoutRootView={onLayoutRootView()}
-		>
-			<TopNavigation title="Contacts" accessoryRight={renderAccessoryRight} />
-			<InputBox
-				placeholderText="Search Contacts"
-				inputValue={inputText}
-				handleOnChangeText={(val) => handleSearch(val)}
-			/>
-			<FlatList
-				refreshing={isLoading}
-				onRefresh={fetchContacts}
-				data={filteredList}
-				renderItem={renderItem}
-				keyExtractor={(item) => item.id}
-				ListEmptyComponent={listEmptyComponent}
-			/>
+		<Layout style={{ flex: 1 }} level="1" onLayoutRootView={onLayoutRootView()}>
+			<TopNavigation title={navigationTitle} accessoryRight={renderAccessoryRight} />
+			<View style={{ marginHorizontal: 16 }}>
+				<InputBox
+					placeholderText="Search Contacts"
+					inputValue={inputText}
+					handleOnChangeText={(val) => handleSearch(val)}
+					inputStyle={{ marginBottom: 8 }}
+				/>
+				<FlatList
+					refreshing={isLoading}
+					onRefresh={fetchContacts}
+					data={filteredList}
+					renderItem={renderItem}
+					keyExtractor={(item) => item.id}
+					ListEmptyComponent={listEmptyComponent}
+				/>
+			</View>
 		</Layout>
 	);
 };

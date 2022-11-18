@@ -14,7 +14,6 @@ import {
 	Button,
 	Select,
 	SelectItem,
-	Icon,
 	Modal,
 	Card,
 	Avatar,
@@ -22,6 +21,7 @@ import {
 import { getFirestore, setDoc, doc, getDoc } from "firebase/firestore";
 import { saveInFirebaseDb } from "../context/DbStorage";
 import * as ImagePicker from "expo-image-picker";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const ContactForm = ({ screenName, navigation, userId }) => {
 	const [userObj, setUserObj] = useState();
@@ -177,24 +177,21 @@ const ContactForm = ({ screenName, navigation, userId }) => {
 					{contactPicture ? (
 						<>
 							<Pressable style={styles.photoContainer} onPress={() => setVisible(true)}>
-								<Avatar
-									source={{ uri: `${contactPicture}` }}
-									style={{ width: 100, height: 100 }}
-								/>
+								<Avatar source={{ uri: `${contactPicture}` }} style={{ width: 100, height: 100 }} />
 							</Pressable>
 							<Text>Change Photo</Text>
 						</>
 					) : (
 						<>
 							<Pressable style={styles.photoContainer} onPress={() => setVisible(true)}>
-								<Icon style={{ width: 48, height: 48 }} fill="#ffffff" name="image-outline" />
+								<Ionicons style={{ width: 48, height: 48 }} fill="#ffffff" name="image-outline" />
 							</Pressable>
 							<Text>Add Photo</Text>
 						</>
 					)}
 				</View>
 				<View style={{ flexDirection: "row", marginBottom: 8, alignItems: "center" }}>
-					<Icon style={styles.icon} fill="#8F9BB3" name="person-outline" />
+					<Ionicons style={styles.icon} fill="#8F9BB3" name="person-outline" />
 					<View style={{ flex: 1, marginLeft: 16 }}>
 						<Input
 							style={{ marginBottom: 8 }}
@@ -211,7 +208,7 @@ const ContactForm = ({ screenName, navigation, userId }) => {
 					</View>
 				</View>
 				<View style={{ flexDirection: "row", marginBottom: 8, alignItems: "center" }}>
-					<Icon style={styles.icon} fill="#8F9BB3" name="email-outline" />
+					<Ionicons style={styles.icon} fill="#8F9BB3" name="mail-outline" />
 					<View style={{ flex: 1, marginLeft: 16 }}>
 						<Input
 							style={{ marginBottom: 8 }}
@@ -234,7 +231,7 @@ const ContactForm = ({ screenName, navigation, userId }) => {
 					</View>
 				</View>
 				<View style={{ flexDirection: "row", alignItems: "center" }}>
-					<Icon style={styles.icon} fill="#8F9BB3" name="phone-outline" />
+					<Ionicons style={styles.icon} fill="#8F9BB3" name="call-outline" />
 					<View style={{ flex: 1, marginLeft: 16 }}>
 						<Input
 							style={{ marginBottom: 8 }}

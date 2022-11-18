@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
-import { Text, Input, Icon, AlertIcon } from "@ui-kitten/components";
+import { Text, Input, AlertIcon } from "@ui-kitten/components";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const InputBox = ({
 	inputStyle,
@@ -22,7 +23,7 @@ const InputBox = ({
 
 	const renderIcon = (props) => (
 		<TouchableWithoutFeedback onPress={toggleSecureEntry}>
-			<Icon {...props} name={secureTextEntry ? "eye-off" : "eye"} />
+			<Ionicons name={secureTextEntry ? "eye-off" : "eye"} />
 		</TouchableWithoutFeedback>
 	);
 

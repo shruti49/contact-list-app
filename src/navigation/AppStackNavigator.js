@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import AddContactScreen from "../screens/AddContactScreen";
 import EditContactScreen from "../screens/EditContactScreen";
+import ContactDetailScreen from "../screens/ContactDetailScreen";
 
 import HomeScreenTabNavigator from "./HomeScreenTabNavigator";
 
@@ -21,6 +22,7 @@ const AppStackNavigator = () => {
 			<AppStack.Screen name="home" component={HomeScreenTabNavigator} />
 			<AppStack.Screen name="addContact" component={AddContactScreen} />
 			<AppStack.Screen name="editContact" component={EditContactScreen} />
+			<AppStack.Screen name="contactDetail" component={ContactDetailScreen} />
 		</AppStack.Navigator>
 	);
 };
