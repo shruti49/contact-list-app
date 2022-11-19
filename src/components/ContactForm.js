@@ -16,12 +16,12 @@ import {
 	SelectItem,
 	Modal,
 	Card,
-	Avatar,
 } from "@ui-kitten/components";
 import { getFirestore, setDoc, doc, getDoc } from "firebase/firestore";
 import { saveInFirebaseDb } from "../context/DbStorage";
 import * as ImagePicker from "expo-image-picker";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import Avatar from "./Avatar.component";
 
 const ContactForm = ({ screenName, navigation, userId }) => {
 	const [userObj, setUserObj] = useState();
@@ -177,7 +177,7 @@ const ContactForm = ({ screenName, navigation, userId }) => {
 					{contactPicture ? (
 						<>
 							<Pressable style={styles.photoContainer} onPress={() => setVisible(true)}>
-								<Avatar source={{ uri: `${contactPicture}` }} style={{ width: 100, height: 100 }} />
+								<Avatar source={contactPicture} size={100} />
 							</Pressable>
 							<Text>Change Photo</Text>
 						</>

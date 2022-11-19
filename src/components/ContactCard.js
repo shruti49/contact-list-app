@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
-import { Text, Avatar } from "@ui-kitten/components";
+import { Text } from "@ui-kitten/components";
+import Avatar from "./Avatar.component";
 
 const ContactCard = ({ user, navigation }) => {
 	const IMAGE_URL = user.data.contactImage;
@@ -9,22 +10,18 @@ const ContactCard = ({ user, navigation }) => {
 			style={styles.container}
 			onPress={() => navigation.navigate("contactDetail", user)}
 		>
-			<Avatar style={styles.image} size="medium" source={{ uri: `${IMAGE_URL}` }} />
+			<Avatar size="medium" source={IMAGE_URL} name={user.data.fName + " " + user.data.lName} />
 			<View
 				style={{
 					flex: 1,
-					flexDirection: "row",
-					justifyContent: "space-between",
-					alignItems: "center",
+					marginLeft: 8,
 				}}
 			>
-				<View>
-					<Text>
-						{user.data.fName} {user.data.lName}
-					</Text>
-					<View style={{ flexDirection: "row", alignItems: "center" }}>
-						<Text>{user.data.phoneNumber}</Text>
-					</View>
+				<Text>
+					{user.data.fName} {user.data.lName}
+				</Text>
+				<View style={{ flexDirection: "row", alignItems: "center" }}>
+					<Text>{user.data.phoneNumber}</Text>
 				</View>
 			</View>
 		</TouchableOpacity>
@@ -39,9 +36,6 @@ const styles = StyleSheet.create({
 		borderRadius: 4,
 		padding: 8,
 		marginBottom: 8,
-	},
-	image: {
-		marginRight: 8,
 	},
 });
 

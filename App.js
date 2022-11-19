@@ -7,12 +7,11 @@ import { ApplicationProvider } from "@ui-kitten/components";
 
 import AppNavigator from "./src/navigation/AppNavigator";
 import { AuthProvider } from "./src/context/AuthContext";
-import { default as theme } from "./src/infrastructure/theme";
 
 export default function App() {
 	return (
 		<>
-			<ApplicationProvider {...eva} theme={{ ...eva.dark, ...theme }}>
+			<ApplicationProvider {...eva} theme={eva.dark}>
 				<SafeAreaView style={styles.container}>
 					<AuthProvider>
 						<AppNavigator />

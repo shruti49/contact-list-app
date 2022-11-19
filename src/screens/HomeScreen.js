@@ -7,6 +7,9 @@ import * as SplashScreen from "expo-splash-screen";
 import InputBox from "../components/InputBox.component";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
+const AddUserIcon = (props) => (
+	<Ionicons {...props} name="person-add-sharp" size={18} color="white" />
+);
 
 const HomeScreen = ({ navigation }) => {
 	// Keep the splash screen visible while we fetch resources
@@ -72,8 +75,6 @@ const HomeScreen = ({ navigation }) => {
 	const renderItem = ({ item }) => {
 		return <ContactCard user={item} navigation={navigation} />;
 	};
-	
-	const AddUserIcon = (props) => <Ionicons {...props} name="person-add-sharp" size={18} color="white" />;
 
 	const renderAccessoryRight = () => (
 		<TopNavigationAction icon={AddUserIcon} onPress={() => navigation.navigate("addContact")} />

@@ -6,13 +6,13 @@ import {
 	Layout,
 	TopNavigation,
 	TopNavigationAction,
-	Avatar,
 	Divider,
 	Modal,
 	Button,
 } from "@ui-kitten/components";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { getFirestore, doc, deleteDoc } from "firebase/firestore";
+import Avatar from "../components/Avatar.component";
 
 const BackIcon = () => <Ionicons name="arrow-back" size={24} color={"#ffffff"} />;
 
@@ -67,9 +67,9 @@ const ContactDetailScreen = ({ route, navigation }) => {
 			<Card style={styles.card}>
 				<View style={{ alignItems: "center" }}>
 					<Avatar
+						source={user?.contactImage}
 						style={{ width: 112, height: 112 }}
-						source={{ uri: user?.contactImage }}
-						// name={fullName !== "" ? fullName : ""}
+						name={user?.fName + " " + user?.lName}
 					/>
 				</View>
 				<Text style={{ textAlign: "center", color: "#000000" }} category="h3">

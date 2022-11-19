@@ -1,13 +1,11 @@
 import React from "react";
-import propTypes from "prop-types";
+//import propTypes from "prop-types";
 import { View } from "react-native";
-import { Avatar as Avatar2, Text, useTheme } from "@ui-kitten/components";
+import { Avatar as Avatar2, Text } from "@ui-kitten/components";
 //import { imageTransformation } from "../utilities/helper";
 
 const Avatar = (props) => {
 	const { size, source, name, color, ...restProps } = props;
-
-	const theme = useTheme();
 
 	const getSize = (imageSize, dimension) => {
 		switch (imageSize) {
@@ -50,7 +48,7 @@ const Avatar = (props) => {
 						width: getSize(size, "width"),
 						height: getSize(size, "height"),
 						borderRadius: getSize(size, "width") / 2,
-						backgroundColor: color !== "" ? color : theme["background-basic-color-4"],
+						backgroundColor: "black",
 						justifyContent: "center",
 					}}
 				>
@@ -84,9 +82,9 @@ Avatar.defaultProps = {
 	color: "",
 };
 
-Avatar.propTypes = {
-	size: propTypes.string.isRequired,
-	color: propTypes.string,
-	source: propTypes.string,
-	name: propTypes.string,
-};
+// Avatar.propTypes = {
+// 	size: propTypes.string.isRequired,
+// 	color: propTypes.string,
+// 	source: propTypes.string,
+// 	name: propTypes.string,
+// };
