@@ -77,7 +77,10 @@ const HomeScreen = ({ navigation }) => {
 	};
 
 	const renderAccessoryRight = () => (
-		<TopNavigationAction icon={AddUserIcon} onPress={() => navigation.navigate("addContact")} />
+		<TopNavigationAction
+			icon={AddUserIcon}
+			onPress={() => navigation.navigate("addContact", { screenName: "HomeScreen" })}
+		/>
 	);
 
 	const onLayoutRootView = useCallback(async () => {

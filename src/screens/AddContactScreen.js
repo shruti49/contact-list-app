@@ -6,7 +6,7 @@ import ContactForm from "../components/ContactForm";
 
 const BackIcon = () => <Ionicons name="arrow-back" />;
 
-const AddContactScreen = ({ navigation, screenName }) => {
+const AddContactScreen = ({ navigation, route }) => {
 	const renderBackAction = () => (
 		<TopNavigationAction icon={BackIcon} onPress={() => navigation.goBack()} />
 	);

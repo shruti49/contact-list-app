@@ -9,6 +9,7 @@ import {
 	Divider,
 	Modal,
 	Button,
+	Popover,
 } from "@ui-kitten/components";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { getFirestore, doc, deleteDoc } from "firebase/firestore";
@@ -19,10 +20,12 @@ const BackIcon = () => <Ionicons name="arrow-back" size={24} color={"#ffffff"} /
 const ContactDetailScreen = ({ route, navigation }) => {
 	const db = getFirestore();
 	const [visible, setVisible] = useState(false);
+	const [popOverVisible, setPopOverVisible] = useState(false);
 	let user = {};
 
 	if (route.params) {
 		user = route.params.data;
+		console.log(user);
 	}
 
 	const handleDelete = () => {
@@ -41,15 +44,33 @@ const ContactDetailScreen = ({ route, navigation }) => {
 		<TopNavigationAction icon={BackIcon} onPress={() => navigation.goBack()} />
 	);
 
+	const renderToggleButton = () => (
+		<TouchableOpacity onPress={() => setPopOverVisible(true)}>
+			<Ionicons name="ellipsis-vertical" size={24} color="white" />
+		</TouchableOpacity>
+	);
+
 	const renderAccessoryRight = () => (
-		<View style={{ flexDirection: "row" }}>
-			<TouchableOpacity onPress={() => navigation.navigate("editContact", { id: user.id })}>
-				<Ionicons name="create" size={24} color={"#ffffff"} />
-			</TouchableOpacity>
-			<TouchableOpacity onPress={() => setVisible(true)}>
-				<Ionicons name="trash" size={24} color={"#ffffff"} />
-			</TouchableOpacity>
-		</View>
+		<Popover
+			visible={popOverVisible}
+			anchor={renderToggleButton}
+			onBackdropPress={() => setPopOverVisible(false)}
+			placement="bottom start"
+		>
+			<View style={{ paddingVertical: 2, paddingHorizontal: 8 }}>
+				<TouchableOpacity
+					style={{ flexDirection: "row" }}
+					onPress={() => navigation.navigate("editContact", { id: route.params.id })}
+				>
+					<Ionicons name="create" size={18} color={"#ffffff"} />
+					<Text>Edit</Text>
+				</TouchableOpacity>
+				<TouchableOpacity style={{ flexDirection: "row" }} onPress={() => setVisible(true)}>
+					<Ionicons name="trash" size={18} color={"#ffffff"} />
+					<Text>Delete</Text>
+				</TouchableOpacity>
+			</View>
+		</Popover>
 	);
 	const openWhatsapp = () => {
 		let url = "whatsapp://send?text=" + "Hey! Wazzup" + "&phone=91" + user?.phoneNumber;
@@ -158,5 +179,10 @@ const styles = StyleSheet.create({
 	icon: {
 		width: 24,
 		height: 24,
+	},
+	content: {
+		alignItems: "center",
+		paddingHorizontal: 4,
+		paddingVertical: 8,
 	},
 });

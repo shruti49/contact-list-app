@@ -16,6 +16,7 @@ import {
 	SelectItem,
 	Modal,
 	Card,
+	Divider,
 } from "@ui-kitten/components";
 import { getFirestore, setDoc, doc, getDoc } from "firebase/firestore";
 import { saveInFirebaseDb } from "../context/DbStorage";
@@ -184,14 +185,14 @@ const ContactForm = ({ screenName, navigation, userId }) => {
 					) : (
 						<>
 							<Pressable style={styles.photoContainer} onPress={() => setVisible(true)}>
-								<Ionicons style={{ width: 48, height: 48 }} fill="#ffffff" name="image-outline" />
+								<Ionicons size={36} color="#ffffff" name="image-outline" />
 							</Pressable>
 							<Text>Add Photo</Text>
 						</>
 					)}
 				</View>
 				<View style={{ flexDirection: "row", marginBottom: 8, alignItems: "center" }}>
-					<Ionicons style={styles.icon} fill="#8F9BB3" name="person-outline" />
+					<Ionicons size={36} color="#ffffff" name="person-outline" />
 					<View style={{ flex: 1, marginLeft: 16 }}>
 						<Input
 							style={{ marginBottom: 8 }}
@@ -208,7 +209,7 @@ const ContactForm = ({ screenName, navigation, userId }) => {
 					</View>
 				</View>
 				<View style={{ flexDirection: "row", marginBottom: 8, alignItems: "center" }}>
-					<Ionicons style={styles.icon} fill="#8F9BB3" name="mail-outline" />
+					<Ionicons size={36} color="#ffffff" name="mail-outline" />
 					<View style={{ flex: 1, marginLeft: 16 }}>
 						<Input
 							style={{ marginBottom: 8 }}
@@ -231,7 +232,7 @@ const ContactForm = ({ screenName, navigation, userId }) => {
 					</View>
 				</View>
 				<View style={{ flexDirection: "row", alignItems: "center" }}>
-					<Ionicons style={styles.icon} fill="#8F9BB3" name="call-outline" />
+					<Ionicons size={36} color="#ffffff" name="call-outline" />
 					<View style={{ flex: 1, marginLeft: 16 }}>
 						<Input
 							style={{ marginBottom: 8 }}
@@ -251,15 +252,16 @@ const ContactForm = ({ screenName, navigation, userId }) => {
 						>
 							{phoneLabel.map(renderPhoneOptions)}
 						</Select>
-						<View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-							<Text>WhatsApp</Text>
-							<Toggle
-								style={{ marginBottom: 16 }}
-								checked={isWhatsApp}
-								onChange={(isWhatsApp) => setIsWhatsApp(isWhatsApp)}
-							></Toggle>
-						</View>
 					</View>
+				</View>
+				<Divider style={{ marginVertical: 16, backgroundColor: "#ffffff" }} />
+				<View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+					<Text>WhatsApp</Text>
+					<Toggle
+						style={{ marginBottom: 16 }}
+						checked={isWhatsApp}
+						onChange={(isWhatsApp) => setIsWhatsApp(isWhatsApp)}
+					></Toggle>
 				</View>
 				<Button status="primary" onPress={storeDataInFirebase}>
 					Save
@@ -325,10 +327,6 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 		marginBottom: 8,
-	},
-	icon: {
-		width: 24,
-		height: 24,
 	},
 	backdrop: {
 		backgroundColor: "rgba(0, 0, 0, 0.5)",

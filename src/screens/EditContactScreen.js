@@ -1,16 +1,22 @@
 import React from "react";
-import { TopNavigation, TopNavigationAction, Layout } from "@ui-kitten/components";
+import { TopNavigation, TopNavigationAction, Layout, View } from "@ui-kitten/components";
 import ContactForm from "../components/ContactForm";
 
-const BackIcon = () => <Ionicons {...props} name="arrow-back" />;
+const BackIcon = () => <Ionicons size={24} name="arrow-back" />;
 
 const EditContactScreen = ({ navigation, route }) => {
+	console.log(route);
 	const renderBackAction = () => (
 		<TopNavigationAction icon={BackIcon} onPress={() => navigation.goBack()} />
 	);
+	const navigationTitle = () => (
+		<Text category="h4" style={{ marginLeft: 8 }}>
+			Edit Contact
+		</Text>
+	);
 	return (
 		<Layout style={{ flex: 1 }} level="1">
-			<TopNavigation title="Edit Contact" accessoryLeft={renderBackAction} />
+			<TopNavigation title={navigationTitle} accessoryLeft={renderBackAction} />
 			<View style={{ paddingHorizontal: 16 }}>
 				<ContactForm
 					screenName="editContactScreen"
