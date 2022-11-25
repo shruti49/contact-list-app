@@ -2,7 +2,6 @@ import React from "react";
 //import propTypes from "prop-types";
 import { View } from "react-native";
 import { Avatar as Avatar2, Text } from "@ui-kitten/components";
-//import { imageTransformation } from "../utilities/helper";
 
 const Avatar = (props) => {
 	const { size, source, name, color, ...restProps } = props;

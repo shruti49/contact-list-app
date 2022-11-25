@@ -4,9 +4,13 @@ import { TopNavigation, TopNavigationAction, Layout, Text } from "@ui-kitten/com
 import Ionicons from "react-native-vector-icons/Ionicons";
 import ContactForm from "../components/ContactForm";
 
-const BackIcon = () => <Ionicons name="arrow-back" />;
+const BackIcon = () => <Ionicons name="arrow-back" size={24} color="#ffffff"/>;
 
 const AddContactScreen = ({ navigation, route }) => {
+	let screenName = "";
+	if (route.params !== undefined) {
+		screenName = route.params.screenName;
+	}
 	const renderBackAction = () => (
 		<TopNavigationAction icon={BackIcon} onPress={() => navigation.goBack()} />
 	);
