@@ -90,6 +90,7 @@ const ContactDetailScreen = ({ route, navigation }) => {
 					<Avatar
 						source={user?.contactImage}
 						style={{ width: 112, height: 112 }}
+						size={!user?.contactImage ? "huge" : ""}
 						name={user?.fName + " " + user?.lName}
 					/>
 				</View>

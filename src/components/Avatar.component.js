@@ -23,6 +23,9 @@ const Avatar = (props) => {
 			case "giant":
 				if (dimension === "font") return "h4";
 				return 68;
+			case "huge":
+				if (dimension === "font") return "h1";
+				return 112;
 			default:
 				return null;
 		}
