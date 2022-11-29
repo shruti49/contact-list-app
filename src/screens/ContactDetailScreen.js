@@ -25,7 +25,6 @@ const ContactDetailScreen = ({ route, navigation }) => {
 
 	if (route.params) {
 		user = route.params.data;
-		console.log(user);
 	}
 
 	const handleDelete = () => {

@@ -1,6 +1,14 @@
 import React, { useContext, useState } from "react";
-import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
-import { Text, Button } from "@ui-kitten/components";
+import {
+	View,
+	StyleSheet,
+	TouchableOpacity,
+	ScrollView,
+	KeyboardAvoidingView,
+	TouchableWithoutFeedback,
+	Keyboard,
+} from "react-native";
+import { Text, Button, Layout } from "@ui-kitten/components";
 import InputBox from "../components/InputBox.component";
 import validateWrapper from "../utilities/validationWrapper";
 import { AuthContext } from "../context/AuthContext";
@@ -125,95 +133,100 @@ const Registration = ({ navigation }) => {
 	};
 
 	return (
-		<View style={styles.container}>
-			<View style={{ marginVertical: 16 }}>
-				<Text category="h2">Get Started</Text>
-			</View>
-			<ScrollView>
-				<View style={{ flexDirection: "row" }}>
-					<InputBox
-						inputStyle={{ flex: 1, paddingRight: 8 }}
-						inputLabel="First Name"
-						placeholderText="Rahul"
-						inputValue={firstName}
-						handleBlurEvent={() => validationClear("firstName")}
-						handleFocusEvent={() => validateUser("firstName")}
-						handleOnChangeText={(val) => {
-							setFirstName(val), setFirstNameError("");
-						}}
-						inputCaptionError={firstNameError}
-					/>
-					<InputBox
-						inputStyle={{ flex: 1 }}
-						inputLabel="Last Name"
-						placeholderText="Yadav"
-						inputValue={lastName}
-						handleBlurEvent={() => validationClear("lastName")}
-						handleFocusEvent={() => validateUser("lastName")}
-						handleOnChangeText={(val) => {
-							setLastName(val), setLastNameError("");
-						}}
-						inputCaptionError={lastNameError}
-					/>
-				</View>
-				<InputBox
-					inputLabel="E-mail"
-					placeholderText="rahul@yadav.in"
-					inputValue={email}
-					handleBlurEvent={() => validationClear("email")}
-					handleFocusEvent={() => validateUser("email")}
-					handleOnChangeText={(val) => {
-						setEmail(val), setEmailError("");
-					}}
-					inputCaptionError={emailError}
-				/>
+		<Layout style={{ flex: 1 }}>
+			<KeyboardAvoidingView style={{ flex: 1 }} behavior="height">
+				<ScrollView style={{ flex: 1 }}>
+					<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+						<View style={styles.container}>
+							<View style={{ marginVertical: 16 }}>
+								<Text category="h2">Get Started</Text>
+							</View>
+							{/* <ScrollView behavior="padding"> */}
+							<View style={{ flexDirection: "row" }}>
+								<InputBox
+									inputStyle={{ flex: 1, paddingRight: 8 }}
+									inputLabel="First Name"
+									placeholderText="Rahul"
+									inputValue={firstName}
+									handleBlurEvent={() => validationClear("firstName")}
+									handleFocusEvent={() => validateUser("firstName")}
+									handleOnChangeText={(val) => {
+										setFirstName(val), setFirstNameError("");
+									}}
+									inputCaptionError={firstNameError}
+								/>
+								<InputBox
+									inputStyle={{ flex: 1 }}
+									inputLabel="Last Name"
+									placeholderText="Yadav"
+									inputValue={lastName}
+									handleBlurEvent={() => validationClear("lastName")}
+									handleFocusEvent={() => validateUser("lastName")}
+									handleOnChangeText={(val) => {
+										setLastName(val), setLastNameError("");
+									}}
+									inputCaptionError={lastNameError}
+								/>
+							</View>
+							<InputBox
+								inputLabel="E-mail"
+								placeholderText="rahul@yadav.in"
+								inputValue={email}
+								handleBlurEvent={() => validationClear("email")}
+								handleFocusEvent={() => validateUser("email")}
+								handleOnChangeText={(val) => {
+									setEmail(val), setEmailError("");
+								}}
+								inputCaptionError={emailError}
+							/>
 
-				<InputBox
-					inputLabel="Address"
-					placeholderText="B-block"
-					inputSize="large"
-					inputValue={address}
-					// handleBlurEvent={() => validationClear(phoneNumber)}
-					// handleFocusEvent={() => validateUser(phoneNumber)}
-					handleOnChangeText={(val) => {
-						setAddress(val), setAddressError("");
-					}}
-					inputCaptionError={addressError}
-				/>
+							<InputBox
+								inputLabel="Address"
+								placeholderText="B-block"
+								inputSize="large"
+								inputValue={address}
+								// handleBlurEvent={() => validationClear(phoneNumber)}
+								// handleFocusEvent={() => validateUser(phoneNumber)}
+								handleOnChangeText={(val) => {
+									setAddress(val), setAddressError("");
+								}}
+								inputCaptionError={addressError}
+							/>
 
-				<InputBox
-					inputLabel="Mobile Number"
-					placeholderText="+919999999999"
-					keyboardType="phone-pad"
-					inputValue={phoneNumber}
-					handleBlurEvent={() => validationClear("phoneNumber")}
-					handleFocusEvent={() => validateUser("phoneNumber")}
-					handleOnChangeText={(val) => {
-						setPhoneNumber(val), setPhoneNumberError("");
-					}}
-					inputCaptionError={phoneNumberError}
-				/>
-				<InputBox
-					inputLabel="Password"
-					placeholderText="Password"
-					inputValue={password}
-					handleBlurEvent={() => validationClear("password")}
-					handleFocusEvent={() => validateUser("password")}
-					handleOnChangeText={(val) => {
-						setPassword(val), setPasswordError("");
-					}}
-					inputCaptionError={passwordError}
-				/>
-				<View style={{ flexDirection: "row", marginBottom: 16 }}>
-					<Button onPress={handleSignUp} disabled={signUpBtnDisable}>
-						Sign Up
-					</Button>
-				</View>
-				<TouchableOpacity onPress={() => navigation.goBack()}>
-					<Text category="s1">Sign In</Text>
-				</TouchableOpacity>
-			</ScrollView>
-			{/* <InputBox
+							<InputBox
+								inputLabel="Mobile Number"
+								placeholderText="+919999999999"
+								keyboardType="phone-pad"
+								inputValue={phoneNumber}
+								handleBlurEvent={() => validationClear("phoneNumber")}
+								handleFocusEvent={() => validateUser("phoneNumber")}
+								handleOnChangeText={(val) => {
+									setPhoneNumber(val), setPhoneNumberError("");
+								}}
+								inputCaptionError={phoneNumberError}
+							/>
+							<InputBox
+								inputLabel="Password"
+								placeholderText="Password"
+								inputValue={password}
+								handleBlurEvent={() => validationClear("password")}
+								handleFocusEvent={() => validateUser("password")}
+								handleOnChangeText={(val) => {
+									setPassword(val), setPasswordError("");
+								}}
+								inputCaptionError={passwordError}
+							/>
+							<View style={{ marginBottom: 16 }}>
+								<Button onPress={handleSignUp} disabled={signUpBtnDisable}>
+									Sign Up
+								</Button>
+							</View>
+							<TouchableOpacity onPress={() => navigation.goBack()}>
+								<Text category="s1">Sign In</Text>
+							</TouchableOpacity>
+							{/* </ScrollView> */}
+
+							{/* <InputBox
 				inputLabel="Confirm Password"
 				placeholderText="Password"
 				inputValue={password}
@@ -222,7 +235,11 @@ const Registration = ({ navigation }) => {
 				handleOnChangeText={(val) => setInput({ ...input, password: val, passwordError: "" })}
 				inputCaptionError={input.passwordError}
 			/> */}
-		</View>
+						</View>
+					</TouchableWithoutFeedback>
+				</ScrollView>
+			</KeyboardAvoidingView>
+		</Layout>
 	);
 };
 
@@ -230,7 +247,6 @@ export default Registration;
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
 		marginHorizontal: 16,
 	},
 });

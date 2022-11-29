@@ -6,7 +6,7 @@ import {
 	TouchableOpacity,
 	TouchableWithoutFeedback,
 } from "react-native";
-import { Text, Button } from "@ui-kitten/components";
+import { Text, Button, Layout } from "@ui-kitten/components";
 import InputBox from "../components/InputBox.component";
 import validateWrapper from "../utilities/validationWrapper";
 import { AuthContext } from "../context/AuthContext";
@@ -57,43 +57,45 @@ const LoginScreen = ({ navigation }) => {
 	};
 
 	return (
-		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-			<View style={[styles.container]}>
-				<View style={{ marginVertical: 16 }}>
-					<Text category="h2">Welcome Back</Text>
+		<Layout style={{ flex: 1 }}>
+			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+				<View style={[styles.container]}>
+					<View style={{ marginVertical: 16 }}>
+						<Text category="h2">Welcome Back</Text>
+					</View>
+					<InputBox
+						inputLabel="E-mail"
+						placeholderText="rahul@yadav.in"
+						inputValue={email}
+						handleBlurEvent={() => validationClear("email")}
+						handleFocusEvent={() => validateUser("email")}
+						handleOnChangeText={(val) => {
+							setEmail(val), setEmailError("");
+						}}
+						inputCaptionError={emailError !== "" ? emailError : " "}
+					/>
+					<InputBox
+						inputLabel="Password"
+						placeholderText="Password"
+						inputValue={password}
+						handleBlurEvent={() => validationClear("password")}
+						handleFocusEvent={() => validateUser("password")}
+						handleOnChangeText={(val) => {
+							setPassword(val), setPasswordError("");
+						}}
+						inputCaptionError={passwordError}
+					/>
+					<View style={{ flexDirection: "row", marginBottom: 16 }}>
+						<Button onPress={handleSignIn} disabled={signInBtnDisable}>
+							Login
+						</Button>
+					</View>
+					<TouchableOpacity onPress={() => navigation.navigate("register")}>
+						<Text category="s1">Sign Up</Text>
+					</TouchableOpacity>
 				</View>
-				<InputBox
-					inputLabel="E-mail"
-					placeholderText="rahul@yadav.in"
-					inputValue={email}
-					handleBlurEvent={() => validationClear("email")}
-					handleFocusEvent={() => validateUser("email")}
-					handleOnChangeText={(val) => {
-						setEmail(val), setEmailError("");
-					}}
-					inputCaptionError={emailError !== "" ? emailError : " "}
-				/>
-				<InputBox
-					inputLabel="Password"
-					placeholderText="Password"
-					inputValue={password}
-					handleBlurEvent={() => validationClear("password")}
-					handleFocusEvent={() => validateUser("password")}
-					handleOnChangeText={(val) => {
-						setPassword(val), setPasswordError("");
-					}}
-					inputCaptionError={passwordError}
-				/>
-				<View style={{ flexDirection: "row", marginBottom: 16 }}>
-					<Button onPress={handleSignIn} disabled={signInBtnDisable}>
-						Login
-					</Button>
-				</View>
-				<TouchableOpacity onPress={() => navigation.navigate("register")}>
-					<Text category="s1">Sign Up</Text>
-				</TouchableOpacity>
-			</View>
-		</TouchableWithoutFeedback>
+			</TouchableWithoutFeedback>
+		</Layout>
 	);
 };
 
@@ -101,7 +103,6 @@ export default LoginScreen;
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
 		marginHorizontal: 16,
 	},
 });
