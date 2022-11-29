@@ -30,7 +30,6 @@ export const AuthProvider = ({ children }) => {
 	const auth = getAuth(app);
 	const [isLoading, setIsLoading] = useState(false);
 	const [user, setUser] = useState(null);
-
 	//Handle User State Changes
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
@@ -57,6 +56,7 @@ export const AuthProvider = ({ children }) => {
 				// ...
 			})
 			.catch((error) => {
+				setIsLoading(false);
 				const errorCode = error.code;
 				Alert.alert("Oops something went wrong", errorCode, [
 					{
@@ -120,7 +120,7 @@ export const AuthProvider = ({ children }) => {
 	};
 
 	return (
-		<AuthContext.Provider value={{ isLoading, user, login, logout, register }}>
+		<AuthContext.Provider value={{ isLoading, user, login, logout, register, error }}>
 			{children}
 		</AuthContext.Provider>
 	);

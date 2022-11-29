@@ -50,10 +50,7 @@ const LoginScreen = ({ navigation }) => {
 			return;
 		}
 
-		const response = login(email, password);
-		if (response === undefined) {
-			navigation.navigate("login");
-		}
+		login(email, password);
 	};
 
 	return (
